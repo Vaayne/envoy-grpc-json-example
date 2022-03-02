@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+
+option go_package = "server/bookstore;bookstore";
+package bookstore;
+
+import "google/api/annotations.proto";
+
+// The greeting service definition.
+service BookStore {
+  // Sends a greeting
+  rpc Status(Empty) returns (StatusResponse) {
+    option (google.api.http) = {
+      get: "/bookstore.BookStore/Status"
+    };
+  }
+
+}
+
+message Empty {}
+
+message StatusResponse {
+  string status = 1;
+}
+

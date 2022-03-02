@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  proxy:
+    image: envoyproxy/envoy:v1.21-latest
+    depends_on:
+      - server
+    ports:
+      - 10000:10000
+      - 19000:19000
+    volumes:
+      - ./protos/:/tmp/protos/:ro
+      - ./envoy-configs:/var/lib/envoy:ro
+    command:
+      - /usr/local/bin/envoy
+      - -c
+      - /var/lib/envoy/envoy.yaml
+      - -l
+      - debug
+
+  server:
+    build:
+      context: ./server
+    ports:
+      - 8001:8001
+
+  proto:
+    build:
+      context: ./protos
+    volumes:
+      - ./protos:/workspace
+      - ./server/pb:/workspace/gen/go
+    command: buf generate

@@ -1,0 +1,23 @@
+version: v1
+plugins:
+  - name: go
+    out: gen/go
+    opt: paths=source_relative
+  - name: go-grpc
+    out: gen/go
+    opt: paths=source_relative
+  - name: grpc-gateway
+    out: gen/go
+    opt:
+      - paths=source_relative
+      - logtostderr=true
+  - name: openapiv2
+    out: gen/go
+  - name: doc
+    out: gen/go
+    opt: markdown,doc.md,source_relative
+  - name: validate
+    out: gen/go
+    opt:
+      - paths=source_relative
+      - lang=go
